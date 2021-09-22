@@ -1,10 +1,11 @@
-package com.young.challenge
+package com.young.challenge.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
+import com.young.challenge.R
 import com.young.challenge.databinding.ActivityListDetailBinding
 import com.young.challenge.room.entity.ChallengeList
 

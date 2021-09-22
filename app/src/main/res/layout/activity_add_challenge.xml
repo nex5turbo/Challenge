@@ -5,13 +5,13 @@
     <data>
         <variable
             name="activity"
-            type="com.young.challenge.AddChallengeActivity" />
+            type="com.young.challenge.ui.AddChallengeActivity" />
     </data>
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".AddChallengeActivity">
+        tools:context=".ui.AddChallengeActivity">
         <TextView
             android:layout_gravity="center_horizontal"
             android:id="@+id/logo"

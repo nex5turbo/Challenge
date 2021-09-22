@@ -4,9 +4,8 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
-import com.young.challenge.ListDetailActivity
+import com.young.challenge.ui.ListDetailActivity
 import com.young.challenge.R
 import com.young.challenge.databinding.MainRecyclerItemBinding
 import com.young.challenge.room.entity.ChallengeList

@@ -3,7 +3,7 @@
     <data>
         <variable
             name="viewModel"
-            type="com.young.challenge.MainViewModel" />
+            type="com.young.challenge.ui.MainViewModel" />
     </data>
     <RelativeLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
@@ -11,7 +11,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".MainActivity">
+        tools:context=".ui.MainActivity">
         <TextView
             android:layout_centerHorizontal="true"
             android:id="@+id/logo"

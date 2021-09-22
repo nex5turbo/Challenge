@@ -1,4 +1,4 @@
-package com.young.challenge
+package com.young.challenge.ui
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -7,6 +7,7 @@ import android.os.Environment
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
+import com.young.challenge.R
 import com.young.challenge.adapter.MainRecyclerAdapter
 import com.young.challenge.databinding.ActivityMainBinding
 import java.io.File

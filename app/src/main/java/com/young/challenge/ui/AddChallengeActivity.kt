@@ -1,4 +1,4 @@
-package com.young.challenge
+package com.young.challenge.ui
 
 import android.annotation.SuppressLint
 import android.app.DatePickerDialog
@@ -11,6 +11,7 @@ import android.view.View
 import android.widget.AdapterView
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
+import com.young.challenge.R
 import com.young.challenge.databinding.ActivityAddChallengeBinding
 import com.young.challenge.room.MyDatabase
 import com.young.challenge.room.dao.ChallengeListDAO

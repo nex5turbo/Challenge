@@ -13,9 +13,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Challenge">
-        <activity android:name=".ListDetailActivity"></activity>
-        <activity android:name=".AddChallengeActivity" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".ui.ListDetailActivity"></activity>
+        <activity android:name=".ui.AddChallengeActivity" />
+        <activity android:name=".ui.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

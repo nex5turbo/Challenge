@@ -1,4 +1,4 @@
-package com.young.challenge
+package com.young.challenge.ui
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
