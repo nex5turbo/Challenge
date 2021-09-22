@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="kind">
+        <item>카운트 업</item>
+        <item>카운트 다운</item>
+    </string-array>
+</resources>
