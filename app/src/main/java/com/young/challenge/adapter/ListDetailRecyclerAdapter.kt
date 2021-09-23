@@ -17,11 +17,11 @@ import com.young.challenge.ui.DiaryActivity
 import com.young.challenge.ui.ListDetailActivity
 import com.young.challenge.ui.ListDetailViewModel
 import com.young.challenge.utils.Constants.APP_NAME
+import com.young.challenge.utils.Constants.DIARY_MODIFY_CODE
 import com.young.challenge.utils.Display.deviceWidth
 import java.io.File
 
 class ListDetailRecyclerAdapter(private val listItem: ChallengeList, val viewModel: ListDetailViewModel, val activity: ListDetailActivity): RecyclerView.Adapter<ListDetailRecyclerAdapter.MyViewHolder>() {
-    private val DIARY_MODIFY_CODE = 1003
     private var items: List<ChallengeItem> = listOf()
 
     lateinit var binding: ListDetailItemBinding
@@ -67,6 +67,7 @@ class ListDetailRecyclerAdapter(private val listItem: ChallengeList, val viewMod
             val intent = Intent(holder.itemView.context, DiaryActivity::class.java)
             intent.putExtra("path", path)
             intent.putExtra("data", items[position])
+            intent.putExtra("code", DIARY_MODIFY_CODE)
             activity.startActivityForResult(intent, DIARY_MODIFY_CODE)
         }
     }

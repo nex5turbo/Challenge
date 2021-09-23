@@ -3,11 +3,14 @@ package com.young.challenge.ui
 import android.annotation.SuppressLint
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
+import android.graphics.Rect
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Environment
 import android.util.Log
+import android.view.MotionEvent
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import android.widget.AdapterView
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
@@ -204,5 +207,21 @@ class AddChallengeActivity : AppCompatActivity() {
         val trimmedName = name?.trim().toString()
         val exp = Regex("^[가-힣a-zA-Z0-9._ -]{2,}\$")
         return trimmedName.isNotEmpty() && exp.matches(trimmedName)
+    }
+
+    override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
+        val focusView = currentFocus
+        if (focusView != null) {
+            val rect = Rect()
+            focusView.getGlobalVisibleRect(rect)
+            val x = ev?.x?.toInt()
+            val y = ev?.y?.toInt()
+            if (!rect.contains(x!!,y!!)) {
+                val imm = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+                imm.hideSoftInputFromWindow(focusView.windowToken, 0)
+                focusView.clearFocus()
+            }
+        }
+        return super.dispatchTouchEvent(ev)
     }
 }

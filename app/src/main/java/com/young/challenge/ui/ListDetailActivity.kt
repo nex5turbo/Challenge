@@ -17,16 +17,15 @@ import com.young.challenge.databinding.ActivityListDetailBinding
 import com.young.challenge.room.entity.ChallengeItem
 import com.young.challenge.room.entity.ChallengeList
 import com.young.challenge.utils.Constants.APP_NAME
+import com.young.challenge.utils.Constants.CAMERA_CODE
+import com.young.challenge.utils.Constants.DIARY_CODE
+import com.young.challenge.utils.Constants.DIARY_MODIFY_CODE
 import java.io.File
 import java.io.FileOutputStream
 import java.text.SimpleDateFormat
 import java.util.*
 
 class ListDetailActivity : AppCompatActivity() {
-    private val CAMERA_CODE = 1001
-    private val DIARY_CODE = 1002
-    private val DIARY_MODIFY_CODE = 1003
-
     private val viewModel: ListDetailViewModel by viewModels()
     private val binding: ActivityListDetailBinding by lazy {
         DataBindingUtil.setContentView(this, R.layout.activity_list_detail)
@@ -81,6 +80,7 @@ class ListDetailActivity : AppCompatActivity() {
                 val intent = Intent(this, DiaryActivity::class.java)
                 intent.putExtra("data", mData)
                 intent.putExtra("path", tempFile?.absolutePath)
+                intent.putExtra("code", DIARY_CODE)
                 startActivityForResult(intent, DIARY_CODE)
             } else if (resultCode == RESULT_OK && requestCode == DIARY_CODE) run {
                 val resultData = data?.getSerializableExtra("data") as ChallengeItem

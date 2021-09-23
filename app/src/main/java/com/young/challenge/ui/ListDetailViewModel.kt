@@ -26,7 +26,7 @@ class ListDetailViewModel(application: Application): AndroidViewModel(applicatio
     private var _challengeDate: MutableLiveData<String> = MutableLiveData("")
     val challengeDate: LiveData<String> = _challengeDate
 
-    private var _noResultVisibility: MutableLiveData<Int> = MutableLiveData()
+    private var _noResultVisibility: MutableLiveData<Int> = MutableLiveData(View.GONE)
     val noResultVisibility: LiveData<Int> = _noResultVisibility
 
     fun setItemList(item: ChallengeList) {
