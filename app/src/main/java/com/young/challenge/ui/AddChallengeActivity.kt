@@ -16,6 +16,7 @@ import com.young.challenge.databinding.ActivityAddChallengeBinding
 import com.young.challenge.room.MyDatabase
 import com.young.challenge.room.dao.ChallengeListDAO
 import com.young.challenge.room.entity.ChallengeList
+import com.young.challenge.utils.Constants.APP_NAME
 import java.io.File
 import java.util.*
 
@@ -185,6 +186,7 @@ class AddChallengeActivity : AppCompatActivity() {
         val mkName = if (isHideOn) ".$dirName" else dirName
 
         val path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).toString() + File.separator + APP_NAME + File.separator + mkName
+
         Log.d("###", path)
         val file = File(path)
 

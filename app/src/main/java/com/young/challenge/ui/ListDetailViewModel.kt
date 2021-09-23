@@ -37,10 +37,12 @@ class ListDetailViewModel(application: Application): AndroidViewModel(applicatio
     fun insertItem(item: ChallengeItem) {
         CoroutineScope(IO).launch {
             itemDAO?.insertChallengeItem(item)
+            val data = itemDAO?.getAllItem(item.challengeName)
+            _itemList.postValue(data)
         }
     }
 
-    fun getDate(item: ChallengeList): String {
+    private fun getDate(item: ChallengeList): String {
         val kind = item.kind
         val endDate = item.endDate
         val startDate = item.startDate
