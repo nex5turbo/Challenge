@@ -23,7 +23,9 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 class ListDetailActivity : AppCompatActivity() {
-    val CAMERA_CODE = 1001
+    private val CAMERA_CODE = 1001
+    private val DIARY_CODE = 1002
+    private val DIARY_MODIFY_CODE = 1003
 
     private val viewModel: ListDetailViewModel by viewModels()
     private val binding: ActivityListDetailBinding by lazy {
@@ -42,7 +44,7 @@ class ListDetailActivity : AppCompatActivity() {
 
         challengeData = intent.getSerializableExtra("data") as ChallengeList
 
-        adapter = ListDetailRecyclerAdapter(challengeData)
+        adapter = ListDetailRecyclerAdapter(challengeData, viewModel, this)
         binding.listDetailRecyclerView.adapter = adapter
 
         viewModel.setItemList(challengeData)
@@ -66,16 +68,31 @@ class ListDetailActivity : AppCompatActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (tempFile?.length() == 0L) tempFile?.delete()
-        if (resultCode == RESULT_OK && requestCode == CAMERA_CODE) run {
-            val name = tempFile!!.name
-            val day = 1
-            val challengeName = challengeData.challengeName
-            val diary = "for test $name"
-            val mData = ChallengeItem(challengeName, name ,day, diary)
-            viewModel.insertItem(mData)
+        Log.d("###", "$requestCode")
+        if (tempFile?.length() == 0L) {
+            tempFile?.delete()
+        } else {
+            if (resultCode == RESULT_OK && requestCode == CAMERA_CODE) run {
+                val name = tempFile!!.name
+                val day = 1
+                val challengeName = challengeData.challengeName
+                val diary = ""
+                val mData = ChallengeItem(challengeName, name ,day, diary)
+                val intent = Intent(this, DiaryActivity::class.java)
+                intent.putExtra("data", mData)
+                intent.putExtra("path", tempFile?.absolutePath)
+                startActivityForResult(intent, DIARY_CODE)
+            } else if (resultCode == RESULT_OK && requestCode == DIARY_CODE) run {
+                val resultData = data?.getSerializableExtra("data") as ChallengeItem
+                viewModel.insertItem(resultData)
+                tempFile = null
+            }
         }
-        tempFile = null
+        if (resultCode == RESULT_OK && requestCode == DIARY_MODIFY_CODE) run {
+            Log.d("###", "Im in")
+            val resultData = data?.getSerializableExtra("data") as ChallengeItem
+            viewModel.updateItem(resultData)
+        }
     }
 
     private fun createImageFile(): File {

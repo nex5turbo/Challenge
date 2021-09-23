@@ -66,7 +66,10 @@ class AddChallengeActivity : AppCompatActivity() {
                 Toast.makeText(this, "2글자 이상 입력해주세요.", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
-
+            if (!isValidName(name)) {
+                Toast.makeText(this, "제대로 된 챌린지명을 사용하세요.", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
             if (listDAO.countName(name) > 0) {
                 Toast.makeText(this, "챌린지명이 중복됩니다.", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
@@ -195,5 +198,11 @@ class AddChallengeActivity : AppCompatActivity() {
         } else {
             Toast.makeText(this, "폴더생성 완료", Toast.LENGTH_SHORT).show()
         }
+    }
+
+    private fun isValidName(name: String?): Boolean {
+        val trimmedName = name?.trim().toString()
+        val exp = Regex("^[가-힣a-zA-Z0-9._ -]{2,}\$")
+        return trimmedName.isNotEmpty() && exp.matches(trimmedName)
     }
 }

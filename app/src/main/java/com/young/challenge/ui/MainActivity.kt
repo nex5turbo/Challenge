@@ -30,7 +30,7 @@ class MainActivity : AppCompatActivity() {
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
 
-        adapter = MainRecyclerAdapter()
+        adapter = MainRecyclerAdapter(viewModel)
         binding.mainRecyclerView.adapter = adapter
 
         viewModel.challengeList.observe(this, { items ->

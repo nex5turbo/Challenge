@@ -1,6 +1,7 @@
 package com.young.challenge.ui
 
 import android.app.Application
+import android.view.View
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -25,20 +26,48 @@ class ListDetailViewModel(application: Application): AndroidViewModel(applicatio
     private var _challengeDate: MutableLiveData<String> = MutableLiveData("")
     val challengeDate: LiveData<String> = _challengeDate
 
+    private var _noResultVisibility: MutableLiveData<Int> = MutableLiveData()
+    val noResultVisibility: LiveData<Int> = _noResultVisibility
+
     fun setItemList(item: ChallengeList) {
         _challengeName.value = item.challengeName
         _challengeDate.value = getDate(item)
         CoroutineScope(IO).launch {
             val data = itemDAO?.getAllItem(item.challengeName)
+            if (data!!.isEmpty()) {
+                _noResultVisibility.postValue(View.VISIBLE)
+            } else {
+                _noResultVisibility.postValue(View.GONE)
+            }
             _itemList.postValue(data)
         }
     }
 
+    fun setItemList(name: String) {
+        CoroutineScope(IO).launch {
+            val data = itemDAO?.getAllItem(name)
+            if (data!!.isEmpty()) {
+                _noResultVisibility.postValue(View.VISIBLE)
+            } else {
+                _noResultVisibility.postValue(View.GONE)
+            }
+            _itemList.postValue(data)
+        }
+    }
     fun insertItem(item: ChallengeItem) {
         CoroutineScope(IO).launch {
             itemDAO?.insertChallengeItem(item)
             val data = itemDAO?.getAllItem(item.challengeName)
             _itemList.postValue(data)
+        }
+    }
+
+    fun updateItem(item: ChallengeItem) {
+        CoroutineScope(IO).launch {
+            val name = item.imageName
+            val diary = item.diary
+            itemDAO?.updateDiary(diary, name)
+            setItemList(item.challengeName)
         }
     }
 

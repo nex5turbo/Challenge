@@ -11,9 +11,6 @@ interface ChallengeItemDAO {
     @Insert
     fun insertChallengeItem(item: ChallengeItem)
 
-    @Update
-    fun updateChallengeItem(item: ChallengeItem)
-
     @Query("SELECT * FROM ChallengeItem WHERE challengeName = :name")
     fun getAllItem(name: String): List<ChallengeItem>
 
@@ -22,4 +19,7 @@ interface ChallengeItemDAO {
 
     @Query("SELECT COUNT(*) FROM ChallengeItem WHERE challengeName = :name")
     fun countName(name: String): Int
+
+    @Query("UPDATE ChallengeItem SET diary = :diary WHERE imageName = :name")
+    fun updateDiary(diary: String, name:String)
 }

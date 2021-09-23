@@ -7,14 +7,14 @@ import java.io.Serializable
 @Entity
 data class ChallengeList(
     @PrimaryKey(autoGenerate = false)
-    var challengeName: String,
-    var startDate: Long,
+    val challengeName: String,
+    val startDate: Long,
     var endDate: Long,
-    var kind: Int,
-    var isAlarmOn: Boolean,
-    var isHideOn: Boolean,
-    var alarmAmPm: Boolean,
-    var alarmTime: Int,
-    var alarmMinute: Int
+    val kind: Int,
+    val isAlarmOn: Boolean,
+    val isHideOn: Boolean,
+    val alarmAmPm: Boolean,
+    val alarmTime: Int,
+    val alarmMinute: Int
 
 ): Serializable

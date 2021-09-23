@@ -6,9 +6,9 @@ import java.io.Serializable
 
 @Entity
 data class ChallengeItem(
-    var challengeName: String,
-    var imageName: String,
-    var day: Int,
+    val challengeName: String,
+    val imageName: String,
+    val day: Int,
     var diary: String
 ): Serializable{
     @PrimaryKey(autoGenerate = true) var id: Int = 0

@@ -13,6 +13,7 @@ import kotlinx.coroutines.launch
 class MainViewModel(application: Application): AndroidViewModel(application){
     private val database = MyDatabase.getInstance(application)!!
     private val listDAO = database.challengeListDao()
+    private val itemDAO = database.challengeItemDao()
 
     private val _challengeList: MutableLiveData<List<ChallengeList>> = MutableLiveData(listOf())
     val challengeList: LiveData<List<ChallengeList>> = _challengeList
@@ -20,6 +21,14 @@ class MainViewModel(application: Application): AndroidViewModel(application){
     fun getAllList() {
         CoroutineScope(IO).launch {
             _challengeList.postValue(listDAO.getAllList())
+        }
+    }
+
+    fun deleteList(name: String) {
+        CoroutineScope(IO).launch {
+            listDAO.deleteList(name)
+            itemDAO.deleteAllItem(name)
+            getAllList()
         }
     }
 }

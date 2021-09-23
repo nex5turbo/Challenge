@@ -2,18 +2,29 @@ package com.young.challenge.adapter
 
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.os.Environment
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.young.challenge.ui.ListDetailActivity
 import com.young.challenge.R
 import com.young.challenge.databinding.MainRecyclerItemBinding
+import com.young.challenge.room.MyDatabase
 import com.young.challenge.room.entity.ChallengeList
+import com.young.challenge.ui.MainViewModel
+import com.young.challenge.utils.Constants.APP_NAME
 import com.young.challenge.utils.DateUtil
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers.IO
+import kotlinx.coroutines.Dispatchers.Main
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import java.io.File
 
-class MainRecyclerAdapter: RecyclerView.Adapter<MainRecyclerAdapter.MyViewHolder>() {
+class MainRecyclerAdapter(val viewModel: MainViewModel): RecyclerView.Adapter<MainRecyclerAdapter.MyViewHolder>() {
     private var items = listOf<ChallengeList>()
 
+    private val path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).toString() + File.separator + APP_NAME
     private lateinit var binding: MainRecyclerItemBinding
     inner class MyViewHolder(val binding: MainRecyclerItemBinding): RecyclerView.ViewHolder(binding.root)
 
@@ -50,7 +61,14 @@ class MainRecyclerAdapter: RecyclerView.Adapter<MainRecyclerAdapter.MyViewHolder
             val intent = Intent(context, ListDetailActivity::class.java)
             intent.putExtra("data", items[position])
             context.startActivity(intent)
+        }
 
+        holder.itemView.setOnLongClickListener {
+            CoroutineScope(IO).launch {
+                setDirectoryEmpty(items[position].challengeName, items[position].isHideOn)
+                viewModel.deleteList(items[position].challengeName)
+            }
+            return@setOnLongClickListener true
         }
     }
 
@@ -59,5 +77,19 @@ class MainRecyclerAdapter: RecyclerView.Adapter<MainRecyclerAdapter.MyViewHolder
     fun setData(data: List<ChallengeList>) {
         items = data
         notifyDataSetChanged()
+    }
+
+    private fun setDirectoryEmpty(name: String, isHideOn: Boolean) {
+        val hideName = if (isHideOn) ".$name" else name
+        val filePath = path + File.separator + hideName
+        val folder = File(filePath)
+        val childFileList = folder.listFiles()
+
+        if (folder.exists()) {
+            childFileList?.forEach { childFile ->
+                childFile.delete()
+            }
+            folder.delete()
+        }
     }
 }

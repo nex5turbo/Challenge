@@ -16,4 +16,7 @@ interface ChallengeListDAO {
 
     @Query("SELECT COUNT(*) FROM ChallengeList WHERE challengeName = :name")
     fun countName(name: String): Int
+
+    @Query("DELETE FROM ChallengeList WHERE challengeName = :name")
+    fun deleteList(name: String)
 }
