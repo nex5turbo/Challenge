@@ -18,6 +18,7 @@ import com.young.challenge.utils.Constants.APP_NAME
 import com.young.challenge.utils.Constants.CAMERA_CODE
 import com.young.challenge.utils.Constants.DIARY_CODE
 import com.young.challenge.utils.Constants.DIARY_MODIFY_CODE
+import com.young.challenge.utils.DateUtil
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*
@@ -71,7 +72,7 @@ class ListDetailActivity : AppCompatActivity() {
         } else {
             if (resultCode == RESULT_OK && requestCode == CAMERA_CODE) run {
                 val name = tempFile!!.name
-                val day = 1
+                val day = DateUtil.dateDifference(challengeData.startDate, challengeData.endDate, challengeData.kind) + 1
                 val challengeName = challengeData.challengeName
                 val diary = ""
                 val mData = ChallengeItem(challengeName, name ,day, diary)
@@ -83,13 +84,19 @@ class ListDetailActivity : AppCompatActivity() {
             } else if (resultCode == RESULT_OK && requestCode == DIARY_CODE) run {
                 val resultData = data?.getSerializableExtra("data") as ChallengeItem
                 viewModel.insertItem(resultData)
+                viewModel.setItemList(challengeData)
                 tempFile = null
             }
         }
         if (resultCode == RESULT_OK && requestCode == DIARY_MODIFY_CODE) run {
-            Log.d("###", "Im in")
-            val resultData = data?.getSerializableExtra("data") as ChallengeItem
-            viewModel.updateItem(resultData)
+            val isDeleted = data?.getBooleanExtra("deleted", false)
+            if (!isDeleted!!) {
+                val resultData = data.getSerializableExtra("data") as ChallengeItem
+                viewModel.updateItem(resultData)
+            } else {
+                viewModel.setItemList(challengeData)
+            }
+
         }
     }
 

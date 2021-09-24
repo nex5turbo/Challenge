@@ -11,22 +11,29 @@ import androidx.databinding.DataBindingUtil
 import com.bumptech.glide.Glide
 import com.young.challenge.R
 import com.young.challenge.databinding.ActivityDiaryBinding
+import com.young.challenge.room.MyDatabase
+import com.young.challenge.room.dao.ChallengeItemDAO
 import com.young.challenge.room.entity.ChallengeItem
 import com.young.challenge.utils.Constants.DIARY_CODE
 import com.young.challenge.utils.Constants.DIARY_MODIFY_CODE
 import com.young.challenge.utils.Display.deviceWidth
+import java.io.File
 
 class DiaryActivity : AppCompatActivity() {
     lateinit var binding: ActivityDiaryBinding
     lateinit var data: ChallengeItem
+
+    lateinit var itemDAO: ChallengeItemDAO
     private var code = 0
+    lateinit var imagePath: String
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_diary)
+        itemDAO = MyDatabase.getInstance(this)!!.challengeItemDao()
 
         code = intent.getIntExtra("code", -1)
         data = intent.getSerializableExtra("data") as ChallengeItem
-        val imagePath = intent.getStringExtra("path")
+        imagePath = intent.getStringExtra("path")!!
         val iv = binding.diaryImageView
         iv.layoutParams.width = deviceWidth
         iv.layoutParams.height = deviceWidth
@@ -42,6 +49,16 @@ class DiaryActivity : AppCompatActivity() {
             .load(imagePath)
             .fitCenter()
             .into(iv)
+
+        binding.itemDeleteButton.setOnClickListener {
+            itemDAO.deleteItem(data.imageName)
+            val file = File(imagePath)
+            file.delete()
+            val intent = Intent()
+            intent.putExtra("deleted", true)
+            setResult(RESULT_OK, intent)
+            finish()
+        }
     }
 
     override fun onBackPressed() {

@@ -51,6 +51,11 @@ class MainRecyclerAdapter(val viewModel: MainViewModel): RecyclerView.Adapter<Ma
         } else {
             b.dateTextView.text = "D-${dDays + 1}"
         }
+        if (kind == 1) {//카운트 다운
+            b.dateTextView.setTextColor(context.resources.getColor(R.color.orange))
+        } else {
+            b.dateTextView.setTextColor(context.resources.getColor(R.color.yellow))
+        }
 
         b.alarmTextView.text = if (isAlarmOn) context.getString(R.string.alarmOnMessage) else context.getString(R.string.alarmOffMessage)
         b.hideTextView.text = if (isHideOn) context.getString(R.string.hideOnMessage) else context.getString(R.string.hideOffMessage)

@@ -1,6 +1,7 @@
 package com.young.challenge.ui
 
 import android.app.Application
+import android.view.View
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -18,9 +19,18 @@ class MainViewModel(application: Application): AndroidViewModel(application){
     private val _challengeList: MutableLiveData<List<ChallengeList>> = MutableLiveData(listOf())
     val challengeList: LiveData<List<ChallengeList>> = _challengeList
 
+    private var _noResultVisibility: MutableLiveData<Int> = MutableLiveData(View.GONE)
+    val noResultVisibility: LiveData<Int> = _noResultVisibility
+
     fun getAllList() {
         CoroutineScope(IO).launch {
-            _challengeList.postValue(listDAO.getAllList())
+            val data = listDAO.getAllList()
+            if (data.isEmpty()) {
+                _noResultVisibility.postValue(View.VISIBLE)
+            } else {
+                _noResultVisibility.postValue(View.GONE)
+            }
+            _challengeList.postValue(data)
         }
     }
 

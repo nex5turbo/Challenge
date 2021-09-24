@@ -21,4 +21,7 @@ interface ChallengeItemDAO {
 
     @Query("UPDATE ChallengeItem SET diary = :diary WHERE imageName = :name")
     fun updateDiary(diary: String, name:String)
+
+    @Query("DELETE FROM ChallengeItem WHERE imageName = :name")
+    fun deleteItem(name: String)
 }

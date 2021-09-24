@@ -2,6 +2,7 @@ package com.young.challenge.ui
 
 import android.app.Application
 import android.view.View
+import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -11,7 +12,9 @@ import com.young.challenge.room.entity.ChallengeList
 import com.young.challenge.utils.DateUtil
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.IO
+import kotlinx.coroutines.Dispatchers.Main
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class ListDetailViewModel(application: Application): AndroidViewModel(application) {
     private val database = MyDatabase.getInstance(application)
@@ -57,8 +60,6 @@ class ListDetailViewModel(application: Application): AndroidViewModel(applicatio
     fun insertItem(item: ChallengeItem) {
         CoroutineScope(IO).launch {
             itemDAO?.insertChallengeItem(item)
-            val data = itemDAO?.getAllItem(item.challengeName)
-            _itemList.postValue(data)
         }
     }
 
