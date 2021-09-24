@@ -43,7 +43,7 @@ class ListDetailViewModel(application: Application): AndroidViewModel(applicatio
         }
     }
 
-    fun setItemList(name: String) {
+    private fun setItemList(name: String) {
         CoroutineScope(IO).launch {
             val data = itemDAO?.getAllItem(name)
             if (data!!.isEmpty()) {

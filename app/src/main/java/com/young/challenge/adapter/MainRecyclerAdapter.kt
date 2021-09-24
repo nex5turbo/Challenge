@@ -9,18 +9,16 @@ import androidx.recyclerview.widget.RecyclerView
 import com.young.challenge.ui.ListDetailActivity
 import com.young.challenge.R
 import com.young.challenge.databinding.MainRecyclerItemBinding
-import com.young.challenge.room.MyDatabase
 import com.young.challenge.room.entity.ChallengeList
 import com.young.challenge.ui.MainViewModel
 import com.young.challenge.utils.Constants.APP_NAME
 import com.young.challenge.utils.DateUtil
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.IO
-import kotlinx.coroutines.Dispatchers.Main
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import java.io.File
 
+@Suppress("DEPRECATION")
 class MainRecyclerAdapter(val viewModel: MainViewModel): RecyclerView.Adapter<MainRecyclerAdapter.MyViewHolder>() {
     private var items = listOf<ChallengeList>()
 

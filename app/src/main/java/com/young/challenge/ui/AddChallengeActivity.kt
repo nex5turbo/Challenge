@@ -23,6 +23,7 @@ import com.young.challenge.utils.Constants.APP_NAME
 import java.io.File
 import java.util.*
 
+@Suppress("DEPRECATION")
 @SuppressLint("SetTextI18n")
 class AddChallengeActivity : AppCompatActivity() {
     private lateinit var binding: ActivityAddChallengeBinding

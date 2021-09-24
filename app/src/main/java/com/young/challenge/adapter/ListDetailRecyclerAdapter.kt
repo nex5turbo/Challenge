@@ -21,6 +21,7 @@ import com.young.challenge.utils.Constants.DIARY_MODIFY_CODE
 import com.young.challenge.utils.Display.deviceWidth
 import java.io.File
 
+@Suppress("DEPRECATION")
 class ListDetailRecyclerAdapter(private val listItem: ChallengeList, val viewModel: ListDetailViewModel, val activity: ListDetailActivity): RecyclerView.Adapter<ListDetailRecyclerAdapter.MyViewHolder>() {
     private var items: List<ChallengeItem> = listOf()
 

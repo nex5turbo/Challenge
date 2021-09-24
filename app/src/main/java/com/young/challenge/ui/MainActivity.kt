@@ -15,6 +15,7 @@ import com.young.challenge.utils.Constants.APP_NAME
 import com.young.challenge.utils.Display
 import java.io.File
 
+@Suppress("DEPRECATION")
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
 

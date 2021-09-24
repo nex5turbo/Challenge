@@ -2,7 +2,6 @@ package com.young.challenge.ui
 
 import android.content.Intent
 import android.graphics.Rect
-import android.inputmethodservice.InputMethodService
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MotionEvent
@@ -20,7 +19,7 @@ import com.young.challenge.utils.Display.deviceWidth
 class DiaryActivity : AppCompatActivity() {
     lateinit var binding: ActivityDiaryBinding
     lateinit var data: ChallengeItem
-    var code = 0
+    private var code = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_diary)

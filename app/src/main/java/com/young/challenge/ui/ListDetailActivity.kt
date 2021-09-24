@@ -1,8 +1,6 @@
 package com.young.challenge.ui
 
 import android.content.Intent
-import android.graphics.Bitmap
-import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Environment
@@ -21,18 +19,18 @@ import com.young.challenge.utils.Constants.CAMERA_CODE
 import com.young.challenge.utils.Constants.DIARY_CODE
 import com.young.challenge.utils.Constants.DIARY_MODIFY_CODE
 import java.io.File
-import java.io.FileOutputStream
 import java.text.SimpleDateFormat
 import java.util.*
 
+@Suppress("DEPRECATION")
 class ListDetailActivity : AppCompatActivity() {
     private val viewModel: ListDetailViewModel by viewModels()
     private val binding: ActivityListDetailBinding by lazy {
         DataBindingUtil.setContentView(this, R.layout.activity_list_detail)
     }
 
-    lateinit var challengeData: ChallengeList
-    lateinit var adapter: ListDetailRecyclerAdapter
+    private lateinit var challengeData: ChallengeList
+    private lateinit var adapter: ListDetailRecyclerAdapter
 
     private var tempFile: File? = null
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -96,7 +94,7 @@ class ListDetailActivity : AppCompatActivity() {
     }
 
     private fun createImageFile(): File {
-        val timestamp = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
+        val timestamp = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.KOREA).format(Date())
         Log.d("###", timestamp)
         val fileName = "${challengeData.challengeName}_$timestamp"
         val dirName =

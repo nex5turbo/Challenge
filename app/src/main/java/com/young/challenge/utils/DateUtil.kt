@@ -1,6 +1,7 @@
 package com.young.challenge.utils
 
 import java.text.SimpleDateFormat
+import java.util.*
 
 object DateUtil {
     fun dateDifference(startDate: Long, endDate: Long, kind: Int): Int{ // kind 0 -> count up, opp -> count down
@@ -12,7 +13,7 @@ object DateUtil {
         else {
             realStartDate = System.currentTimeMillis()
         }
-        val sf = SimpleDateFormat("yyyy-MM-dd")
+        val sf = SimpleDateFormat("yyyy-MM-dd", Locale.KOREA)
         val mEndDate =  sf.format(realEndDate)
         val mStartDate = sf.format(realStartDate)
 
