@@ -81,12 +81,12 @@ class ListDetailActivity : AppCompatActivity() {
                 intent.putExtra("path", tempFile?.absolutePath)
                 intent.putExtra("code", DIARY_CODE)
                 startActivityForResult(intent, DIARY_CODE)
-            } else if (resultCode == RESULT_OK && requestCode == DIARY_CODE) run {
-                val resultData = data?.getSerializableExtra("data") as ChallengeItem
-                viewModel.insertItem(resultData)
-                viewModel.setItemList(challengeData)
-                tempFile = null
             }
+        }
+        if (resultCode == RESULT_OK && requestCode == DIARY_CODE) run {
+            val resultData = data?.getSerializableExtra("data") as ChallengeItem
+            viewModel.insertItem(resultData)
+            tempFile = null
         }
         if (resultCode == RESULT_OK && requestCode == DIARY_MODIFY_CODE) run {
             val isDeleted = data?.getBooleanExtra("deleted", false)

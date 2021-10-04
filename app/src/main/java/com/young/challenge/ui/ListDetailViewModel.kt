@@ -60,6 +60,7 @@ class ListDetailViewModel(application: Application): AndroidViewModel(applicatio
     fun insertItem(item: ChallengeItem) {
         CoroutineScope(IO).launch {
             itemDAO?.insertChallengeItem(item)
+            setItemList(item.challengeName)
         }
     }
 
